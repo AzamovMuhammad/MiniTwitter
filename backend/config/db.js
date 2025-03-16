@@ -5,7 +5,7 @@ const pool = new Pool({
   host: "localhost",
   database: "miniTwitter",
   password: "1234",
-  port: 5432,
+  port: 5432, 
 });
 
 module.exports = pool;

@@ -4,7 +4,8 @@ const jwt = require("jsonwebtoken");
 
 exports.signup = async (req, res) => {
   try {
-    const { fullname, username, profilepath, password } = req.body;
+    const { fullname, username, password } = req.body;
+    const profilepath = req.file.path;
     const userExists = await pool.query(
       `select * from users where username = $1`,
       [username]
@@ -28,6 +29,7 @@ exports.signup = async (req, res) => {
     res.status(500).send("Girgittonimizda nomaqbul nuqson yuzaga keldi.");
   }
 };
+
 exports.login = async (req, res) => {
   try {
     const { username, password } = req.body;
@@ -39,7 +41,7 @@ exports.login = async (req, res) => {
     if (result.rows.length === 0) {
       return res
         .status(404)
-        .json({ message: "Incorrect username or password" });
+        .json({ message: "user xato" });
     }
 
     const user = result.rows[0];
@@ -48,7 +50,7 @@ exports.login = async (req, res) => {
     if (!isValidPassword) {
       return res
         .status(404)
-        .json({ message: "Incorrect username or password" });
+        .json({ message: "parol xato" });
     }
 
     const token = jwt.sign(
@@ -57,6 +59,7 @@ exports.login = async (req, res) => {
       { expiresIn: "1h" }
     );
     res.json({ user, token });
+
   } catch (error) {
     console.log(error.message);
     res.status(500).send("Girgittonimizda nomaqbul nuqson yuzaga keldi.");

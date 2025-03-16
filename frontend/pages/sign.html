@@ -9,6 +9,7 @@
     <link
       href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap"
       rel="stylesheet" />
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <script src="../assets/js/sign.js" defer></script>
   </head>
   <body>
@@ -16,9 +17,9 @@
       <div class="signPage">
         <img src="../assets/imgs/logo/twitter-logo-4 1.svg" alt="" />
         <h1>Sign Up to Twitter</h1>
-        <input type="text" placeholder="Fullname" />
-        <input type="text" placeholder="Username" />
-        <input type="password" placeholder="Password" />
+        <input type="text" placeholder="Fullname" id="fullname" />
+        <input type="text" placeholder="Username" id="username"/>
+        <input type="password" placeholder="Password" id="password"/>
 
         <label for="customFile" class="custom-file-label">
           <span class="file-btn">Select a file</span>
@@ -26,7 +27,7 @@
         </label>
         <input type="file" id="customFile" class="custom-file-input" hidden />
 
-        <button>Sign Up</button>
+        <button onclick="sign()">Sign Up</button>
         <div class="signLinks">
           <a href="#">Forgot password?</a>
           <a href="/index.html">Log in to Twitter</a>

@@ -41,7 +41,7 @@ exports.login = async (req, res) => {
     if (result.rows.length === 0) {
       return res
         .status(404)
-        .json({ message: "user xato" });
+        .json({ message: "Incorrect username or password!" });
     }
 
     const user = result.rows[0];
@@ -50,7 +50,7 @@ exports.login = async (req, res) => {
     if (!isValidPassword) {
       return res
         .status(404)
-        .json({ message: "parol xato" });
+        .json({ message: "Incorrect username or password!" });
     }
 
     const token = jwt.sign(

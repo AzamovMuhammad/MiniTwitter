@@ -3,6 +3,8 @@ function sign() {
   const username = document.getElementById("username").value;
   const password = document.getElementById("password").value;
   const customFile = document.getElementById("customFile");
+  const errorText = document.getElementById("error")
+  const succesText = document.getElementById("succes")
   const file = customFile.files[0];
 
   const formData = new FormData();
@@ -18,8 +20,17 @@ function sign() {
       },
     })
     .then((res) => {
-      alert("you signed up");
-    });
+      succesText.style.display = "inline"
+      succesText.innerText = "You created your personal akkaount. Please go back to Login page."
+    })
+    .catch((error) => {
+      errorText.style.display = "inline"
+      if (!fullname || !username || !password || !customFile) {
+        errorText.innerText = "Please fill out all fields!"
+      } else {
+        errorText.innerText = 'Unknown error, please try again later!'
+      }
+    })
 }
 
 document.getElementById("customFile").addEventListener("change", function () {

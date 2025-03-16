@@ -5,7 +5,7 @@
     --InputColor-Light: #EBEEF0;
     --textColor-Light: #0F151B;
     --shyColor-Light: #5B7083;
-    --strokeColor-Light: #EBEEF0;
+    --strokeColor-Light: #d1d1d1;
 }
 .dark-mode{
     --bg-Dark: #15202B;
@@ -56,6 +56,12 @@
     font-size: 16px;
     outline: none;
 }
+#error{
+    display: none;
+    color: red;
+    text-align: center !important;
+    width: 100%;
+}
 .loginPage button{
     background-color: var(--primaryColor-Light);
     color: var(--textColor-Light);
@@ -67,6 +73,9 @@
     font-size: 16px;
     margin: 10px 0px;
     cursor: pointer;
+}
+.loginPage button:active{
+    scale: 0.99;
 }
 .loginLinks {
     width: 100%;

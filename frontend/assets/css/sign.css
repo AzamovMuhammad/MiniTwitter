@@ -5,7 +5,7 @@
   --InputColor-Light: #ebeef0;
   --textColor-Light: #0f151b;
   --shyColor-Light: #5b7083;
-  --strokeColor-Light: #ebeef0;
+  --strokeColor-Light: #d1d1d1;
 }
 .dark-mode {
   --bg-Dark: #15202b;
@@ -91,6 +91,20 @@
   border: 1px solid var(--strokeColor-Light); 
 }
 
+#error{
+  display: none;
+  text-align: center;
+  width: 100%;
+  color: red;
+  padding: 3px 0px;
+}
+#succes{
+  display: none;
+  color: green;
+  width: 100%;
+  text-align: center;
+  padding: 3px 0px;
+}
 .file-btn {
   background-color: var(--primaryColor-Light);
   padding: 8px 12px;

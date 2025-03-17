@@ -17,4 +17,24 @@ function showUser() {
     console.error("User data yoki profilepath mavjud emas!");
   }
 }
+
+function switchMode() {
+    const darkMode = document.documentElement.classList.toggle("dark-mode")
+
+    if (darkMode) {
+        localStorage.setItem("theme", "dark")
+        console.log("dark mode switched");
+    } else {
+        localStorage.setItem("theme", "light")
+        console.log("light mode switched");
+    }
+
+    if (localStorage.getItem("theme") === "dark") {
+        document.documentElement.classList.add("dark-mode")
+    }
+}
+
+// Dark and Light modega o'tkazish
+
+switchMode()
 showUser();

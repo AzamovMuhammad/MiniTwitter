@@ -37,3 +37,11 @@ function login() {
 function profilePage() {
     window.location.href = 'pages/profile.html'
 }
+
+function showModeFunction() {
+    if (localStorage.getItem("theme") === "dark") {
+        document.documentElement.classList.add("dark-mode")
+    }
+}
+
+showModeFunction()

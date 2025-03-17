@@ -1,20 +1,20 @@
 :root{
-    --bg-light: #fff;
-    --cardColor-Light: #F6F9FA;
-    --primaryColor-Light:#1EA1F1;
-    --InputColor-Light: #EBEEF0;
-    --textColor-Light: #0F151B;
-    --shyColor-Light: #5B7083;
-    --strokeColor-Light: #d1d1d1;
+    --bg-color: #fff;
+    --cardColor: #F6F9FA;
+    --primaryColor:#1EA1F1;
+    --InputColor: #EBEEF0;
+    --textColor: #0F151B;
+    --shyColor: #5B7083;
+    --strokeColor: #d1d1d1;
 }
 .dark-mode{
-    --bg-Dark: #15202B;
-    --cardColor-Dark: #192834;
-    --primaryColor-Dark: #1EA1F1;
-    --InputColor-Dark: #253441;
-    --textColor-Dark: #FFFFFF;
-    --shyColor-Dark: #8899A6;
-    --strokeColor-Dark: #37454D;
+    --bg-color: #15202B;
+    --cardColor: #192834;
+    --primaryColor: #1EA1F1;
+    --InputColor: #253441;
+    --textColor: #FFFFFF;
+    --shyColor: #8899A6;
+    --strokeColor: #37454D;
 }
 *{
     margin: 0;
@@ -30,16 +30,16 @@
 }
 .timeline{
     width: calc(100% - 800px);
-    border: 1px solid var(--strokeColor-Light);
+    border: 1px solid var(--strokeColor);
     min-height: 100vh;
-    background: var(--bg-light);
+    background: var(--bg-color);
     position: sticky;
     left: 300px;
 }
 .sidebar{
-    border: 1px solid var(--strokeColor-Light);
+    border: 1px solid var(--strokeColor);
     width: 300px;
-    background: var(--bg-light);
+    background: var(--bg-color);
     min-height: 100vh;
     position: fixed;
     top: 0;
@@ -58,7 +58,7 @@
 }
 .sidebarLinks a{
     text-decoration: none;
-    color: var(--textColor-Light);
+    color: var(--textColor);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -76,6 +76,7 @@
     flex-direction: row;
     gap: 10px;
     cursor: pointer;
+    color: var(--textColor);
 }
 .profile img{
     width: 50px;
@@ -83,11 +84,32 @@
     border-radius: 50%;
 }
 .rightSidebar{
-    border: 1px solid var(--strokeColor-Light);
-    max-width: 500px;
+    border: 1px solid var(--strokeColor);
+    width: 500px;
     min-height: 100vh;
-    background: var(--bg-light);
+    background: var(--bg-color);
     position: fixed;
     top: 0;
     right: 0;
+}
+
+/* timeline part css*/
+.mode{
+    width: 100%;
+    padding: 20px;
+    border: 1px solid var(--strokeColor);
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+}
+.mode h2{
+    color: var(--textColor);
+}
+.modeToggle{
+    cursor: pointer;
+    padding: 5px;
+}
+.modeToggle:active{
+    scale: 0.99;
 }

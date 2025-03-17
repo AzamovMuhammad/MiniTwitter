@@ -15,6 +15,7 @@ function login() {
       localStorage.setItem("token", JSON.stringify(token));
       console.log(user);
       console.log(token);
+      profilePage()
     })
     .catch((error) => {
       const resError = error.response.data;
@@ -32,4 +33,7 @@ function login() {
         errorText.innerText = resError.message;
       }
     });
+}
+function profilePage() {
+    window.location.href = 'pages/profile.html'
 }

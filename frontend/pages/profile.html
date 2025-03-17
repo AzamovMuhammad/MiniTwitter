@@ -17,28 +17,43 @@
   </head>
   <body>
     <div class="container">
-        <!-- sidebar part-->
+      <!-- sidebar part-->
       <div class="sidebar">
         <div class="sidebarLinks">
           <img src="/assets/imgs/logo/twitter-logo-4 1.svg" alt="" />
-          <a href="#"><i class="fa-solid fa-house"></i> Home</a>
+          <a href="#" onclick="homePart()"><i class="fa-solid fa-house"></i> Home</a>
           <a href="#"><i class="fa-solid fa-hashtag"></i> Explore</a>
           <a href="#"><i class="fa-solid fa-bell"></i> Notifications</a>
           <a href="#"><i class="fa-solid fa-envelope"></i> Message</a>
           <a href="#"><i class="fa-solid fa-bookmark"></i> Bookmarks</a>
           <a href="#"><i class="fa-solid fa-clipboard-list"></i> Lists</a>
           <a href="#"><i class="fa-solid fa-user"></i> Profile</a>
-          <a href="#"><i class="fa-solid fa-ellipsis"></i> More</a>
+          <a href="#" onclick="morePart()"><i class="fa-solid fa-ellipsis"></i> More</a>
         </div>
-        <div class="profile">
-
-        </div>
+        <div class="profile"></div>
       </div>
-        <!-- timeline part -->
+      <!-- timeline part -->
       <div class="timeline">
-        <div class="mode">
-            <h2>Home</h2>
-            <h2 class="modeToggle" id="modeToggle" onclick="switchMode()"><i class="fa-solid fa-moon"></i></h2>
+        <div class="title">
+          <h2>Home</h2>
+          <h2 class="titleIcon">
+            <i class="fa-solid fa-wand-magic-sparkles"></i>
+          </h2>
+        </div>
+
+        <div class="more">
+          <div class="logout">
+            <h3>If you want to log out, click the this button.</h3>
+            <button onclick="logOut()">log out</button>
+          </div>
+
+          <div class="mode">
+            <h3>You can change mode to the day or night with this button.</h3>
+            <h3 class="modeToggle" id="modeToggle" onclick="switchMode()">
+              <i class="fa-solid fa-moon"></i> Switch Mode
+            </h3>
+          </div>
+
         </div>
       </div>
       <div class="rightSidebar"></div>

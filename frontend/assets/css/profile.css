@@ -94,7 +94,7 @@
 }
 
 /* timeline part css*/
-.mode{
+.title{
     width: 100%;
     padding: 20px;
     border: 1px solid var(--strokeColor);
@@ -103,12 +103,55 @@
     align-items: center;
     justify-content: space-between;
 }
-.mode h2{
+.title h2{
     color: var(--textColor);
+} 
+
+.more{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    gap: 10px;
+    padding: 20px 0px 20px 0px;
+    /* border-bottom:1px solid var(--strokeColor); */
+}
+.logout{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    padding: 10px 10px 20px 40px;
+    gap: 20px;
+    color: var(--textColor);
+    border-bottom: 1px solid var(--strokeColor);
+}
+.logout button{
+    width: 150px;
+    padding: 10px 0px;
+    border: 1px solid var(--strokeColor);
+    border-radius: 12px;
+    font-size: 18px;
+    background: rgb(231, 35, 35);
+    color: var(--textColor);
+    cursor: pointer;
+}
+.mode{
+    width: 100%;
+    padding: 10px 10px 20px 40px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    align-items: start;
+    color: var(--textColor);
+    border-bottom: 1px solid var(--strokeColor);
 }
 .modeToggle{
     cursor: pointer;
-    padding: 5px;
+    padding: 15px;
+    border-radius: 12px;
+    font-weight: 500;
+    background: var(--primaryColor);
 }
 .modeToggle:active{
     scale: 0.99;

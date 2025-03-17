@@ -1,3 +1,10 @@
+const userData = JSON.parse(localStorage.getItem("user"));
+if (userData) {
+  window.location.href = "/pages/profile.html";
+}
+
+
+
 function login() {
   const username = document.getElementById("username").value;
   const password = document.getElementById("password").value;

@@ -49,7 +49,5 @@ function morePart() {
   more.style.display = "flex";
 }
 
-// Dark and Light modega o'tkazish
-
 switchMode();
 showUser();

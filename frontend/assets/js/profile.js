@@ -49,5 +49,11 @@ function morePart() {
   more.style.display = "flex";
 }
 
+document.getElementById("customFile").addEventListener("change", function () {
+  let fileColor = this.files.length > 0 ? "white" : "none";
+  document.querySelector(".fa-image").style.background = `${fileColor}`;
+});
+
+
 switchMode();
 showUser();

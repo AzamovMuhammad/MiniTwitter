@@ -21,14 +21,18 @@
       <div class="sidebar">
         <div class="sidebarLinks">
           <img src="/assets/imgs/logo/twitter-logo-4 1.svg" alt="" />
-          <a href="#" onclick="homePart()"><i class="fa-solid fa-house"></i> Home</a>
+          <a href="#" onclick="homePart()"
+            ><i class="fa-solid fa-house"></i> Home</a
+          >
           <a href="#"><i class="fa-solid fa-hashtag"></i> Explore</a>
           <a href="#"><i class="fa-solid fa-bell"></i> Notifications</a>
           <a href="#"><i class="fa-solid fa-envelope"></i> Message</a>
           <a href="#"><i class="fa-solid fa-bookmark"></i> Bookmarks</a>
           <a href="#"><i class="fa-solid fa-clipboard-list"></i> Lists</a>
           <a href="#"><i class="fa-solid fa-user"></i> Profile</a>
-          <a href="#" onclick="morePart()"><i class="fa-solid fa-ellipsis"></i> More</a>
+          <a href="#" onclick="morePart()"
+            ><i class="fa-solid fa-ellipsis"></i> More</a
+          >
         </div>
         <div class="profile"></div>
       </div>
@@ -39,6 +43,37 @@
           <h2 class="titleIcon">
             <i class="fa-solid fa-wand-magic-sparkles"></i>
           </h2>
+        </div>
+
+        <div class="homePart">
+          <div class="addPost">
+            <div class="inputDiv">
+              <img
+                src="../assets/imgs/logo/twitter-logo-4 1.svg"
+                alt="user image" />
+              <input type="text" placeholder="Whats happening?" />
+            </div>
+            <div class="btnDiv">
+              <div class="selectBtn">
+
+
+                <label for="customFile" class="custom-file-label">
+                  <span class="file-btn"><i class="fa-regular fa-image"></i></span>
+                </label>
+                <input
+                  type="file"
+                  id="customFile"
+                  class="custom-file-input"
+                  hidden />
+
+                  
+                  <i class="fa-solid fa-face-smile"></i>
+                  <i class="fa-solid fa-chart-bar"></i>
+                  <i class="fa-solid fa-business-time"></i>
+              </div>
+              <button>Send Post</button>
+            </div>
+          </div>
         </div>
 
         <div class="more">
@@ -53,7 +88,6 @@
               <i class="fa-solid fa-moon"></i> Switch Mode
             </h3>
           </div>
-
         </div>
       </div>
       <div class="rightSidebar"></div>

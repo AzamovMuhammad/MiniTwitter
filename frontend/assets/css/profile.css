@@ -155,3 +155,63 @@
 .modeToggle:active{
     scale: 0.99;
 }
+
+/* send post part style */
+.btnDiv{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0px 20px;
+}
+.addPost{
+    width: 100%;
+    border: 1px solid var(--strokeColor);
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    padding: 10px 0px;
+}
+.inputDiv{
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+    padding: 0px 20px;
+}
+.inputDiv img{
+    /* width: 60px !important;
+    height: 60px !important; */
+    flex: 1;
+    border-radius: 50%;
+    border: 1px solid var(--strokeColor);
+}
+.inputDiv input{
+    flex: 10;
+    font-size: 20px;
+    outline: none;
+    padding: 15px 10px;
+    background-color: var(--bg-color);
+    border: none;
+    color: var(--textColor);
+}
+.selectBtn i{
+    color: var(--primaryColor);
+    font-size: 30px;
+    cursor: pointer;
+    padding: 10px;
+}
+.btnDiv button{
+    border-radius: 20px;
+    padding: 10px 20px;
+    color: var(--textColor);
+    background-color: var(--primaryColor);
+    border: none;
+    font-size: 18px;
+    cursor: pointer;
+}
+.fa-image{
+    padding: 10px;
+    border-radius: 50%;
+}

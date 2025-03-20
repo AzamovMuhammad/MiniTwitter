@@ -17,6 +17,7 @@ function showUser() {
   } else {
     console.error("User data yoki profilepath mavjud emas!");
   }
+  switchMode();
 }
 function switchMode() {
   const darkMode = document.documentElement.classList.toggle("dark-mode");
@@ -55,5 +56,5 @@ document.getElementById("customFile").addEventListener("change", function () {
 });
 
 
-switchMode();
+
 showUser();

@@ -42,19 +42,38 @@ function logOut() {
   localStorage.removeItem("token");
   window.location.href = "../index.html";
 }
-
 function homePart() {
   more.style.display = "none";
 }
 function morePart() {
   more.style.display = "flex";
 }
-
 document.getElementById("customFile").addEventListener("change", function () {
   let fileColor = this.files.length > 0 ? "white" : "none";
   document.querySelector(".fa-image").style.background = `${fileColor}`;
 });
 
+
+// Post send part js code
+function addPost() {
+  const userId = userData.id
+  const postText = document.getElementById('postText').value;
+  const customFile = document.getElementById("customFile");
+  const file = customFile.files[0];
+
+  const formData = new FormData();
+  formData.append("user_id", userId)
+  formData.append("posttext", postText)
+  formData.append("postFilePath", file)
+
+  axios.post(`http://localhost:4200/post/addPost`,formData, {
+    headers: {
+      "Content-Type": "multipart/form-data",
+    },
+  }).then((res) => {
+    alert("success")  
+  })
+}
 
 
 showUser();

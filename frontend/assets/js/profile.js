@@ -49,7 +49,7 @@ function morePart() {
   more.style.display = "flex";
 }
 document.getElementById("customFile").addEventListener("change", function () {
-  let fileColor = this.files.length > 0 ? "white" : "none";
+  let fileColor = this.files.length > 0 ? "grey" : "none";
   document.querySelector(".fa-image").style.background = `${fileColor}`;
 });
 

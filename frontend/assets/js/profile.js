@@ -63,10 +63,10 @@ function addPost() {
 
   const formData = new FormData();
   formData.append("user_id", userId)
-  formData.append("posttext", postText)
+  formData.append("postText", postText)
   formData.append("postFilePath", file)
 
-  axios.post(`http://localhost:4200/post/addPost`,formData, {
+  axios.post(`http://localhost:4200/post/addPost`, formData, {
     headers: {
       "Content-Type": "multipart/form-data",
     },

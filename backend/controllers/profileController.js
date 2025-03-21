@@ -2,7 +2,7 @@ const pool = require("../config/db");
 
 exports.addUserPost = async (req, res) => {
   try {
-    const { user_id, posttext } = req.body;
+    const { user_id, postText } = req.body;
     let postFilePath;
 
     if (req.file && req.file.path) {
@@ -11,7 +11,7 @@ exports.addUserPost = async (req, res) => {
 
     const newUserPost = await pool.query(
       `INSERT INTO posts (user_id, postText, postFilePath) VALUES ($1, $2, $3) RETURNING *`,
-      [user_id, posttext, postFilePath]
+      [user_id, postText, postFilePath]
     );
 
     res.status(201).json({

@@ -215,3 +215,25 @@
     padding: 10px;
     border-radius: 50%;
 }
+
+/* post cards style */
+.userPosts{
+    width: 100%;
+    padding: 10px 0px;
+    display: flex;
+    flex-direction: column;
+}
+.userPostCard{
+    border-bottom: 1px solid var(--strokeColor);
+    padding: 20px 30px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    color: var(--textColor);
+}
+.userPostCard:nth-last-child(1){
+    border: none;
+}
+.userPostCard p{
+    color: var(--shyColor);
+}

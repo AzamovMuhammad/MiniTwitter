@@ -18,7 +18,20 @@ exports.addUserPost = async (req, res) => {
       message: "Yangi foydalanuvchi post qo'shildi.",
       post: newUserPost.rows[0],
     });
+  } catch (error) {
+    console.log(error.message);
+    res.status(500).send("Serverda xatolik");
+  }
+};
 
+exports.getUserPost = async (req, res) => {
+  try {
+    const { user_id } = req.body;
+    const result = await pool.query(
+      `select * from posts where user_id = $1 order by date desc`,
+      [user_id]
+    );
+    res.status(200).json(result.rows);
   } catch (error) {
     console.log(error.message);
     res.status(500).send("Serverda xatolik");

@@ -2,6 +2,7 @@ const userData = JSON.parse(localStorage.getItem("user"));
 const profile = document.querySelector(".profile");
 const more = document.querySelector(".more");
 const userImg = document.querySelector("#userImg");
+const userPosts = document.querySelector('.userPosts')
 
 function showUser() {
   const inputDivImg = document.querySelector(".inputDivImg");
@@ -21,6 +22,7 @@ function showUser() {
     console.error("User data yoki profilepath mavjud emas!");
   }
   switchMode();
+  getUserPosts()
 }
 document.addEventListener("DOMContentLoaded", () => {
   const theme = localStorage.getItem("theme");
@@ -42,9 +44,13 @@ function logOut() {
 }
 function homePart() {
   more.style.display = "none";
+  userPosts.style.display = "flex";
+
 }
 function morePart() {
   more.style.display = "flex";
+  userPosts.style.display = "none";
+
 }
 document.getElementById("customFile").addEventListener("change", function () {
   let fileColor = this.files.length > 0 ? "grey" : "none";
@@ -69,9 +75,29 @@ function addPost() {
       "Content-Type": "multipart/form-data",
     },
   }).then((res) => {
+    getUserPosts()
     alert("success")  
   })
 }
 
+// poste get js code 
+function getUserPosts() {
+  axios.post(`http://localhost:4200/post/getPosts`, {
+    user_id: userData.id
+  })
+  .then((res) => {
+    const allPosts = res.data
+    userPosts.innerHTML = ''
+    allPosts.map((post) => {
+      userPosts.innerHTML += `
+      <div class="userPostCard">
+        <img src="${"http://localhost:4200/" + post.postfilepath}" alt="">
+        <h2>${post.posttext}</h3>
+        <p>${post.date}</p>
+      </div>
+      `
+    })    
+  })
+}
 
 showUser();

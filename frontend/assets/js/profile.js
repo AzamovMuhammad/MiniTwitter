@@ -4,9 +4,11 @@ const more = document.querySelector(".more");
 const userImg = document.querySelector("#userImg");
 
 function showUser() {
+  const inputDivImg = document.querySelector(".inputDivImg");
   if (userData && userData.profilepath) {
     // Xatolikni oldini olish uchun tekshirish
     const imgUrl = `http://localhost:4200/` + userData.profilepath;
+    inputDivImg.src = imgUrl
     profile.innerHTML += `
             <img id="userImg" src="${imgUrl}" alt="rasm">
             <div class="nameUser">
@@ -14,26 +16,22 @@ function showUser() {
                 <h5>@${userData.username}</h5>
             </div>
         `;
+       
   } else {
     console.error("User data yoki profilepath mavjud emas!");
   }
   switchMode();
 }
+document.addEventListener("DOMContentLoaded", () => {
+  const theme = localStorage.getItem("theme");
+  console.log(theme);
+  document.documentElement.classList.toggle("dark-mode", theme === "dark");
+});
 function switchMode() {
-  const darkMode = document.documentElement.classList.toggle("dark-mode");
-
-  if (darkMode) {
-    localStorage.setItem("theme", "dark");
-    console.log("dark mode switched");
-  } else {
-    localStorage.setItem("theme", "light");
-    console.log("light mode switched");
-  }
-
-  if (localStorage.getItem("theme") === "dark") {
-    document.documentElement.classList.add("dark-mode");
-  }
+  const isDarkMode = document.documentElement.classList.toggle("dark-mode");
+  localStorage.setItem("theme", isDarkMode ? "dark" : "light");
 }
+
 if (!userData) {
   logOut();
 }

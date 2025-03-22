@@ -3,6 +3,7 @@ const app = express();
 const cors = require("cors");
 const enterRouter = require("./routes/userRoutes");
 const profileRouter = require("./routes/profileRouter");
+const likeRouter = require("./routes/likePostRouter");
 
 // middleware
 app.use(cors());
@@ -14,6 +15,9 @@ app.use("/uploads", express.static("uploads"));
 
 // post part 
 app.use('/post', profileRouter)
+
+// post uchun like part
+app.use('/like', likeRouter)
 
 const port = 4200
 app.listen(port, () => {

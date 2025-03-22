@@ -147,11 +147,65 @@ function getAllUsersPost() {
         </div>
         <img src="${"http://localhost:4200/" + post.postfilepath}" alt="">
         <h2>${post.posttext}</h2>
-        <p>${formatdate}</p>
+        <div class="postInfo">        
+          <div class="likeDiv">
+            <i onclick="clickLikeButton(${post.id})" id="like_${post.id}" class="fa-solid fa-heart"></i>
+            <span id="likeSpan_${post.id}" class='likeSpan'>0</span>
+          </div>
+          <p>${formatdate}</p>
+        </div>
       </div>
       `;
     });
+
+    allPosts.map((aPost) => {
+      getLikeCount(aPost.id)
+    })
   });
 }
 
+async function getLikeCount(postID) {
+  try {
+    const response = await axios.post(
+      "http://localhost:4200/like/likesC",
+      {
+        images_id: postID,
+      }
+    );
+    const likeCount = response.data.like_count || 0;
+
+    const likeSpan = document.getElementById(`likeSpan_${postID}`);
+    if (likeSpan) {
+      likeSpan.innerHTML = likeCount;
+    }
+  } catch (error) {
+    console.error("Error fetching like count:", error);
+  }
+}
+
+function clickLikeButton(postID) {
+  const likeIcon = document.getElementById(`like_${postID}`);
+  if (!likeIcon) return;
+
+  // Rangni darhol o‘zgartirish (yaxshi UX uchun)
+  likeIcon.style.color = likeIcon.style.color === "red" ? "var(--textColor)" : "red";
+
+  axios
+    .post(
+      "http://localhost:4200/like/likes",
+      {
+        user_id: userData.id,
+        images_id: postID,
+      }
+    )
+    .then((res) => {
+      console.log("Like response:", res.data);
+      const boolLike = res.data.liked;
+      likeIcon.style.color = boolLike ? "red" : "var(--textColor)";
+      getLikeCount(postID); // Like sonini yangilash
+    })
+    .catch((error) => {
+      console.error("Error liking image:", error);
+    });
+}
 showUser();

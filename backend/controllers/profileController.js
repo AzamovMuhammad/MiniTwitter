@@ -37,3 +37,25 @@ exports.getUserPost = async (req, res) => {
     res.status(500).send("Serverda xatolik");
   }
 };
+
+exports.getAllUsersPosts = async (req, res) => {
+  try {
+    const resultAllPosts = await pool.query(
+      `select 
+        users.id,
+        posts.id,
+        users.fullname,
+        users.profilepath,
+        posts.posttext,
+        posts.postfilepath,
+        posts.date
+      from users
+      inner join posts on users.id = posts.user_id
+      order by posts.date desc`
+    );
+    res.status(200).json(resultAllPosts.rows);
+  } catch (error) {
+    console.log(error.message);
+    res.status(500).send("Serverda xatolik");
+  }
+};

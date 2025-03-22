@@ -141,8 +141,12 @@ function getAllUsersPost() {
 
       allUserPosts.innerHTML += `
       <div class="userPostCard">
+        <div class="allUsersProfile">
+          <img src="${"http://localhost:4200/" + post.profilepath}"/>
+          <h1>${post.fullname}</>
+        </div>
         <img src="${"http://localhost:4200/" + post.postfilepath}" alt="">
-        <h2>${post.posttext}</h3>
+        <h2>${post.posttext}</h2>
         <p>${formatdate}</p>
       </div>
       `;

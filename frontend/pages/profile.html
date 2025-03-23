@@ -24,7 +24,9 @@
           <a href="#" onclick="homePart()"
             ><i class="fa-solid fa-house"></i> Home</a
           >
-          <a href="#" onclick="explorePart()"><i class="fa-solid fa-hashtag"></i> Explore</a>
+          <a href="#" onclick="explorePart()"
+            ><i class="fa-solid fa-hashtag"></i> Explore</a
+          >
           <a href="#"><i class="fa-solid fa-bell"></i> Notifications</a>
           <a href="#"><i class="fa-solid fa-envelope"></i> Message</a>
           <a href="#"><i class="fa-solid fa-bookmark"></i> Bookmarks</a>
@@ -48,17 +50,15 @@
         <div class="homePart">
           <div class="addPost">
             <div class="inputDiv">
-              <img
-                class="inputDivImg"
-                src=""
-                alt="user image" />
+              <img class="inputDivImg" src="" alt="user image" />
               <input id="postText" type="text" placeholder="Whats happening?" />
             </div>
             <div class="btnDiv">
               <div class="selectBtn">
-
                 <label for="customFile" class="custom-file-label">
-                  <span class="file-btn"><i class="fa-regular fa-image"></i></span>
+                  <span class="file-btn"
+                    ><i class="fa-regular fa-image"></i
+                  ></span>
                 </label>
                 <input
                   type="file"
@@ -66,20 +66,15 @@
                   class="custom-file-input"
                   hidden />
 
-                  
-                  <i class="fa-solid fa-face-smile"></i>
-                  <i class="fa-solid fa-chart-bar"></i>
-                  <i class="fa-solid fa-business-time"></i>
+                <i class="fa-solid fa-face-smile"></i>
+                <i class="fa-solid fa-chart-bar"></i>
+                <i class="fa-solid fa-business-time"></i>
               </div>
               <button onclick="addPost()">Send Post</button>
             </div>
           </div>
-          <div class="userPosts">
-
-          </div>
-          <div class="allUserPosts">
-
-          </div>
+          <div class="userPosts"></div>
+          <div class="allUserPosts"></div>
         </div>
 
         <div class="more">
@@ -96,7 +91,41 @@
           </div>
         </div>
       </div>
-      <div class="rightSidebar"></div>
+      <!-- rightSidebar -->
+      <div class="rightSidebar">
+        <div class="noMessage">
+          <i class="fa-solid fa-comment-slash"></i>
+          <h1>No comments</h1>
+        </div>
+
+        <div class="commentSections">
+          <!-- message for user's post -->
+          <div class="secTop">
+            <img src="" alt="rasm" />
+            <div class="secTopText">
+              <h3>username</h3>
+              <p>
+                Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                Explicabo reprehenderit eos error.
+              </p>
+            </div>
+          </div>
+          <div class="secMid">
+            <!-- messages for comments -->
+            <div class="secMidCard">
+              <img src="" alt="rasm" />
+              <div class="secMidText">
+                <h3>Username</h3>
+                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
+              </div>
+            </div>
+          </div>
+          <!-- input for send comments -->
+          <div class="secBottom">
+            
+          </div>
+        </div>
+      </div>
     </div>
   </body>
 </html>

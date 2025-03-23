@@ -149,8 +149,11 @@ function getAllUsersPost() {
         <h2>${post.posttext}</h2>
         <div class="postInfo">        
           <div class="likeDiv">
-            <i onclick="clickLikeButton(${post.id})" id="like_${post.id}" class="fa-solid fa-heart"></i>
-            <span id="likeSpan_${post.id}" class='likeSpan'>0</span>
+            <div id="likeDiv">
+              <i onclick="clickLikeButton(${post.id})" id="like_${post.id}" class="fa-solid fa-heart"></i>
+              <span id="likeSpan_${post.id}" class='likeSpan'>0</span>
+            </div>
+            <i class="fa-solid fa-comment" onclick=" "></i>
           </div>
           <p>${formatdate}</p>
         </div>

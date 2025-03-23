@@ -309,19 +309,18 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: space-between;
-  border: 1px solid green;
   height: 100vh;
 }
 .secTop {
   width: 100%;
-  border: 1px solid red;
+  border-bottom: 1px solid var(--strokeColor);
   padding: 10px;
   display: flex;
   flex-direction: row;
   align-items: center;
   gap: 15px;
   flex: 1;
+  box-shadow: 0px 2px 5px var(--shyColor);
 }
 .secTop img {
   width: 45px;
@@ -334,18 +333,25 @@
 }
 .secMid {
   flex: 10;
-  border: 1px solid blue;
   width: 100%;
 }
 .secBottom {
-  flex: 2;
+  flex: 1.5;
   width: 100%;
-  border: 1px solid purple;
+  border-top: 1px solid var(--strokeColor);
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0px 20px;
+  gap: 10px;
+  box-shadow: 0px -2px 5px var(--shyColor);
+
 }
 
 .secMidCard {
-  border: 1px solid var(--strokeColor);
-  padding: 10px 20px;
+  border-bottom: 1px solid var(--strokeColor);
+  padding: 20px 20px;
   display: flex;
   align-items: center;
   gap: 10px;
@@ -356,3 +362,30 @@
   border: 1px solid var(--strokeColor);
   border-radius: 50%;
 }
+.secBottom img{
+    width: 50px;
+    height: 50px;
+    border: 1px solid var(--strokeColor);
+    border-radius: 50%;
+    flex: 1;
+}
+.secBottom input{
+    flex: 6;
+    background: transparent;
+    border: 1px solid var(--strokeColor);
+    padding: 10px;
+    border-radius: 10px;
+    font-size: 20px;
+    color: var(--textColor);
+    outline: none;
+}
+.secBottom button{
+    flex: 2;
+    font-size: 20px;
+    padding: 10px;
+    border-radius: 10px;
+    background: var(--primaryColor);
+    color: var(--textColor);
+    border: 1px solid var(--strokeColor);
+}
+

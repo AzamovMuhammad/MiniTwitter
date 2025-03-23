@@ -176,11 +176,11 @@ const noMessage = document.querySelector(".noMessage");
 const senderPhoto = document.querySelector(".senderImg");
 
 function commentOpen(post) {
-
   commentsOwner(post);
   noMessage.style.display = "none";
   commentSections.style.display = "flex";
   sessionStorage.setItem("postId", JSON.stringify(post.id));
+  getUserComments()
   senderImg();
 }
 
@@ -188,10 +188,9 @@ function senderImg() {
   senderPhoto.src = `${"http://localhost:4200/" + userData.profilepath}`;
 }
 
+const senderInput = document.querySelector('.senderInput').value;
+const postId = JSON.parse(sessionStorage.getItem("postId"));
 function addComment() {
-  const senderInput = document.querySelector('.senderInput').value;
-  const postId = JSON.parse(sessionStorage.getItem("postId"));
-
   const commentData = {
     user_id: userData.id,
     comment: senderInput,
@@ -210,8 +209,25 @@ function addComment() {
 }
 
 
-const secTop = document.querySelector(".secTop");
+function getUserComments() {
+  const postId = JSON.parse(sessionStorage.getItem("postId"));
+  
+  if (!postId) {
+    console.error("postId topilmadi!");
+    return;
+  }
 
+  axios.post("http://localhost:4200/comment/getComment", { post_id: postId })
+    .then((res) => {
+      console.log("Foydalanuvchi kommentlari:", res.data);
+    })
+    .catch((err) => {
+      console.error("Kommentlarni olishda xatolik:", err);
+    });
+}
+
+
+const secTop = document.querySelector(".secTop");
 function commentsOwner(post) {
   const fixedImgPath = post.profilepath.replace(/[|\\]/g, "/");
   const imgUrl = `http://localhost:4200/${fixedImgPath}`;

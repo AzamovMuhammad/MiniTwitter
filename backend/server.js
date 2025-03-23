@@ -5,6 +5,7 @@ const enterRouter = require("./routes/userRoutes");
 const profileRouter = require("./routes/profileRouter");
 const likeRouter = require("./routes/likePostRouter");
 const { commentPost } = require("./controllers/commentController");
+const commentRouter = require("./routes/commentsRouter");
 
 // middleware
 app.use(cors());
@@ -21,7 +22,7 @@ app.use('/post', profileRouter)
 app.use('/like', likeRouter)
 
 // postlar uchun comments 
-app.use('/comment', commentPost)
+app.use('/comment', commentRouter)
 
 const port = 4200
 app.listen(port, () => {

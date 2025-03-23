@@ -176,14 +176,39 @@ const noMessage = document.querySelector(".noMessage");
 const senderPhoto = document.querySelector(".senderImg");
 
 function commentOpen(post) {
+
   commentsOwner(post);
   noMessage.style.display = "none";
   commentSections.style.display = "flex";
+  sessionStorage.setItem("postId", JSON.stringify(post.id));
   senderImg();
 }
+
 function senderImg() {
   senderPhoto.src = `${"http://localhost:4200/" + userData.profilepath}`;
 }
+
+function addComment() {
+  const senderInput = document.querySelector('.senderInput').value;
+  const postId = JSON.parse(sessionStorage.getItem("postId"));
+
+  const commentData = {
+    user_id: userData.id,
+    comment: senderInput,
+    post_id: postId
+  };
+
+  axios.post("http://localhost:4200/comment/commentPost", commentData, {
+    headers: { "Content-Type": "application/json" } // JSON formatini belgilash
+  })
+  .then((res) => {
+    alert("Success");
+  })
+  .catch((err) => {
+    console.error("Error:", err);
+  });
+}
+
 
 const secTop = document.querySelector(".secTop");
 

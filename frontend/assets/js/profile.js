@@ -136,7 +136,7 @@ function getAllUsersPost() {
     const allPosts = res.data;
     console.log(allPosts);
     allUserPosts.innerHTML = "";
-    
+
     allPosts.map((post) => {
       const newDate = new Date(post.date);
       const formatdate = newDate.toISOString().slice(0, 16).replace("T", " ");
@@ -157,7 +157,9 @@ function getAllUsersPost() {
       }" class="fa-solid fa-heart"></i>
               <span id="likeSpan_${post.id}" class='likeSpan'>0</span>
             </div>
-            <i class="fa-solid fa-comment" onclick='commentOpen(${JSON.stringify(post)})'></i>
+            <i class="fa-solid fa-comment" onclick='commentOpen(${JSON.stringify(
+              post
+            )})'></i>
           </div>
           <p>${formatdate}</p>
         </div>
@@ -180,7 +182,7 @@ function commentOpen(post) {
   noMessage.style.display = "none";
   commentSections.style.display = "flex";
   sessionStorage.setItem("postId", JSON.stringify(post.id));
-  getUserComments()
+  getUserComments();
   senderImg();
 }
 
@@ -188,44 +190,53 @@ function senderImg() {
   senderPhoto.src = `${"http://localhost:4200/" + userData.profilepath}`;
 }
 
-const senderInput = document.querySelector('.senderInput').value;
-const postId = JSON.parse(sessionStorage.getItem("postId"));
 function addComment() {
+  const postId = JSON.parse(sessionStorage.getItem("postId"));
+  const senderInput = document.querySelector(".senderInput").value;
   const commentData = {
     user_id: userData.id,
     comment: senderInput,
-    post_id: postId
+    post_id: postId,
   };
 
-  axios.post("http://localhost:4200/comment/commentPost", commentData, {
-    headers: { "Content-Type": "application/json" } // JSON formatini belgilash
-  })
-  .then((res) => {
-    alert("Success");
-  })
-  .catch((err) => {
-    console.error("Error:", err);
-  });
+  axios
+    .post("http://localhost:4200/comment/commentPost", commentData)
+    .then((res) => {
+      alert("Success");
+    })
+    .catch((err) => {
+      console.error("Error:", err);
+    });
+    getUserComments()
 }
 
-
+const secMid = document.querySelector(".secMid");
 function getUserComments() {
   const postId = JSON.parse(sessionStorage.getItem("postId"));
-  
-  if (!postId) {
-    console.error("postId topilmadi!");
-    return;
-  }
-
-  axios.post("http://localhost:4200/comment/getComment", { post_id: postId })
+  axios
+    .post("http://localhost:4200/comment/getComment", { post_id: postId })
     .then((res) => {
-      console.log("Foydalanuvchi kommentlari:", res.data);
+      secMid.innerHTML = " ";
+      const commentData = res.data;
+      commentData.map((data) => {
+        secMid.innerHTML += `
+        <div class="secMidCard">
+          <img src="${
+            "http://localhost:4200/" + data.profilepath
+          }" alt="rasm" />
+          <div class="secMidText">
+            <h3>${data.username}</h3>
+            <p>
+            ${data.comment}</p>
+          </div>
+        </div>
+        `;
+      });
     })
     .catch((err) => {
       console.error("Kommentlarni olishda xatolik:", err);
     });
 }
-
 
 const secTop = document.querySelector(".secTop");
 function commentsOwner(post) {

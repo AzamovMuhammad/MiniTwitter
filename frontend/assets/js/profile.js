@@ -54,6 +54,8 @@ function homePart() {
   userPosts.style.display = 'block'
   allUserPosts.style.display = 'none'
   pageTitle.innerHTML = 'Home'
+  noMessage.style.display="flex"
+  commentSections.style.display="none"
 }
 function morePart() {
   more.style.display = 'flex'
@@ -61,7 +63,8 @@ function morePart() {
   userPosts.style.display = 'none'
   allUserPosts.style.display = 'none'
   pageTitle.innerHTML = 'More'
-
+  noMessage.style.display="flex"
+  commentSections.style.display="none"
 }
 function explorePart() {
   more.style.display = 'none'
@@ -153,7 +156,7 @@ function getAllUsersPost() {
               <i onclick="clickLikeButton(${post.id})" id="like_${post.id}" class="fa-solid fa-heart"></i>
               <span id="likeSpan_${post.id}" class='likeSpan'>0</span>
             </div>
-            <i class="fa-solid fa-comment" onclick=" "></i>
+            <i class="fa-solid fa-comment" onclick="commentOpen()"></i>
           </div>
           <p>${formatdate}</p>
         </div>
@@ -165,6 +168,20 @@ function getAllUsersPost() {
       getLikeCount(aPost.id)
     })
   });
+}
+
+const commentSections = document.querySelector('.commentSections')
+const noMessage = document.querySelector('.noMessage')
+const senderPhoto = document.querySelector('.senderImg')
+
+function commentOpen() {
+  noMessage.style.display="none"
+  commentSections.style.display="flex"  
+  senderImg()
+}
+
+function senderImg() {
+  senderPhoto.src = `${"http://localhost:4200/" + userData.profilepath}`
 }
 
 async function getLikeCount(postID) {

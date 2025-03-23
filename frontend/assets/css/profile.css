@@ -275,7 +275,7 @@
 .noMessage {
   width: 100%;
   height: 100vh;
-  display: none;
+  display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
@@ -306,7 +306,7 @@
 
 /* commentSections style code */
 .commentSections {
-  display: flex;
+  display: none;
   flex-direction: column;
   align-items: center;
   height: 100vh;

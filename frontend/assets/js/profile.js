@@ -49,30 +49,29 @@ function logOut() {
   window.location.href = "../index.html";
 }
 function homePart() {
-  more.style.display = 'none'
-  addPostDiv.style.display = 'flex'
-  userPosts.style.display = 'block'
-  allUserPosts.style.display = 'none'
-  pageTitle.innerHTML = 'Home'
-  noMessage.style.display="flex"
-  commentSections.style.display="none"
+  more.style.display = "none";
+  addPostDiv.style.display = "flex";
+  userPosts.style.display = "block";
+  allUserPosts.style.display = "none";
+  pageTitle.innerHTML = "Home";
+  noMessage.style.display = "flex";
+  commentSections.style.display = "none";
 }
 function morePart() {
-  more.style.display = 'flex'
-  addPostDiv.style.display = 'none'
-  userPosts.style.display = 'none'
-  allUserPosts.style.display = 'none'
-  pageTitle.innerHTML = 'More'
-  noMessage.style.display="flex"
-  commentSections.style.display="none"
+  more.style.display = "flex";
+  addPostDiv.style.display = "none";
+  userPosts.style.display = "none";
+  allUserPosts.style.display = "none";
+  pageTitle.innerHTML = "More";
+  noMessage.style.display = "flex";
+  commentSections.style.display = "none";
 }
 function explorePart() {
-  more.style.display = 'none'
-  addPostDiv.style.display = 'none'
-  userPosts.style.display = 'none'
-  allUserPosts.style.display = 'flex'
-  pageTitle.innerHTML = 'Explore'
-
+  more.style.display = "none";
+  addPostDiv.style.display = "none";
+  userPosts.style.display = "none";
+  allUserPosts.style.display = "flex";
+  pageTitle.innerHTML = "Explore";
 }
 
 document.getElementById("customFile").addEventListener("change", function () {
@@ -116,7 +115,6 @@ function getUserPosts() {
     })
     .then((res) => {
       const allPosts = res.data;
-      console.log(allPosts);
       userPosts.innerHTML = "";
       allPosts.map((post) => {
         const newDate = new Date(post.date);
@@ -138,6 +136,7 @@ function getAllUsersPost() {
     const allPosts = res.data;
     console.log(allPosts);
     allUserPosts.innerHTML = "";
+    
     allPosts.map((post) => {
       const newDate = new Date(post.date);
       const formatdate = newDate.toISOString().slice(0, 16).replace("T", " ");
@@ -146,17 +145,19 @@ function getAllUsersPost() {
       <div class="userPostCard">
         <div class="allUsersProfile">
           <img src="${"http://localhost:4200/" + post.profilepath}"/>
-          <h1>${post.fullname}</>
+          <h1>${post.fullname}</h1>
         </div>
         <img src="${"http://localhost:4200/" + post.postfilepath}" alt="">
         <h2>${post.posttext}</h2>
         <div class="postInfo">        
           <div class="likeDiv">
             <div id="likeDiv">
-              <i onclick="clickLikeButton(${post.id})" id="like_${post.id}" class="fa-solid fa-heart"></i>
+              <i onclick="clickLikeButton(${post.id})" id="like_${
+        post.id
+      }" class="fa-solid fa-heart"></i>
               <span id="likeSpan_${post.id}" class='likeSpan'>0</span>
             </div>
-            <i class="fa-solid fa-comment" onclick="commentOpen()"></i>
+            <i class="fa-solid fa-comment" onclick='commentOpen(${JSON.stringify(post)})'></i>
           </div>
           <p>${formatdate}</p>
         </div>
@@ -165,33 +166,44 @@ function getAllUsersPost() {
     });
 
     allPosts.map((aPost) => {
-      getLikeCount(aPost.id)
-    })
+      getLikeCount(aPost.id);
+    });
   });
 }
 
-const commentSections = document.querySelector('.commentSections')
-const noMessage = document.querySelector('.noMessage')
-const senderPhoto = document.querySelector('.senderImg')
+const commentSections = document.querySelector(".commentSections");
+const noMessage = document.querySelector(".noMessage");
+const senderPhoto = document.querySelector(".senderImg");
 
-function commentOpen() {
-  noMessage.style.display="none"
-  commentSections.style.display="flex"  
-  senderImg()
+function commentOpen(post) {
+  commentsOwner(post);
+  noMessage.style.display = "none";
+  commentSections.style.display = "flex";
+  senderImg();
+}
+function senderImg() {
+  senderPhoto.src = `${"http://localhost:4200/" + userData.profilepath}`;
 }
 
-function senderImg() {
-  senderPhoto.src = `${"http://localhost:4200/" + userData.profilepath}`
+const secTop = document.querySelector(".secTop");
+
+function commentsOwner(post) {
+  const fixedImgPath = post.profilepath.replace(/[|\\]/g, "/");
+  const imgUrl = `http://localhost:4200/${fixedImgPath}`;
+  secTop.innerHTML = `
+    <img class="secTopImg" src="${imgUrl}" alt="rasm" />
+    <div class="secTopText">
+      <h3>@${post.username}</h3>
+      <p>${post.posttext}</p>
+    </div>
+  `;
 }
 
 async function getLikeCount(postID) {
   try {
-    const response = await axios.post(
-      "http://localhost:4200/like/likesC",
-      {
-        images_id: postID,
-      }
-    );
+    const response = await axios.post("http://localhost:4200/like/likesC", {
+      images_id: postID,
+    });
     const likeCount = response.data.like_count || 0;
 
     const likeSpan = document.getElementById(`likeSpan_${postID}`);
@@ -208,16 +220,14 @@ function clickLikeButton(postID) {
   if (!likeIcon) return;
 
   // Rangni darhol o‘zgartirish (yaxshi UX uchun)
-  likeIcon.style.color = likeIcon.style.color === "red" ? "var(--textColor)" : "red";
+  likeIcon.style.color =
+    likeIcon.style.color === "red" ? "var(--textColor)" : "red";
 
   axios
-    .post(
-      "http://localhost:4200/like/likes",
-      {
-        user_id: userData.id,
-        images_id: postID,
-      }
-    )
+    .post("http://localhost:4200/like/likes", {
+      user_id: userData.id,
+      images_id: postID,
+    })
     .then((res) => {
       console.log("Like response:", res.data);
       const boolLike = res.data.liked;

@@ -46,6 +46,7 @@ exports.getAllUsersPosts = async (req, res) => {
         posts.id,
         users.fullname,
         users.profilepath,
+        users.username,
         posts.posttext,
         posts.postfilepath,
         posts.date

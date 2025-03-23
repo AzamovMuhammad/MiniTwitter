@@ -320,6 +320,7 @@
   align-items: center;
   gap: 15px;
   flex: 1;
+  color: var(--textColor);
   box-shadow: 0px 2px 5px var(--shyColor);
 }
 .secTop img {
@@ -334,6 +335,7 @@
 .secMid {
   flex: 10;
   width: 100%;
+  color: var(--textColor);
 }
 .secBottom {
   flex: 1.5;

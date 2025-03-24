@@ -73,6 +73,13 @@ function explorePart() {
   allUserPosts.style.display = "flex";
   pageTitle.innerHTML = "Explore";
 }
+function bookmarksPart() {
+  more.style.display = "none";
+  addPostDiv.style.display = "none";
+  userPosts.style.display = "none";
+  allUserPosts.style.display = "none";
+  pageTitle.innerHTML = "Bookmarks";
+}
 
 document.getElementById("customFile").addEventListener("change", function () {
   let fileColor = this.files.length > 0 ? "grey" : "none";

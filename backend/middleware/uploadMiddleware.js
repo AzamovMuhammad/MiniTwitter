@@ -9,7 +9,10 @@ const storage = multer.diskStorage({
 });
 
 const upload = multer({ storage: storage });
-const uploadMiddleware = upload.single("profilepath");
 const uploadMiddlewarePost = upload.single("postFilePath");
-module.exports = uploadMiddleware;
-module.exports = uploadMiddlewarePost;
+const uploadMiddleware = upload.single("profilepath");
+
+module.exports = {
+  uploadMiddlewarePost,
+  uploadMiddleware,
+};

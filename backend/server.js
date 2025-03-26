@@ -6,6 +6,7 @@ const profileRouter = require("./routes/profileRouter");
 const likeRouter = require("./routes/likePostRouter");
 const { commentPost } = require("./controllers/commentController");
 const commentRouter = require("./routes/commentsRouter");
+const commentLikeRouter = require("./routes/commentLikeRouter");
 
 // middleware
 app.use(cors());
@@ -23,6 +24,9 @@ app.use('/like', likeRouter)
 
 // postlar uchun comments 
 app.use('/comment', commentRouter)
+
+// commentlar uchun like
+app.use('/commmentLike', commentLikeRouter)
 
 const port = 4200
 app.listen(port, () => {

@@ -18,7 +18,7 @@ app.use("/uploads", express.static("uploads"));
 // post part 
 app.use('/post', profileRouter)
 
-// post uchun like part
+// post uchun like parttt
 app.use('/like', likeRouter)
 
 // postlar uchun comments 

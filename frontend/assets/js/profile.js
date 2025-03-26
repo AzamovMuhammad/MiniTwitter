@@ -72,6 +72,7 @@ function explorePart() {
   userPosts.style.display = "none";
   allUserPosts.style.display = "flex";
   pageTitle.innerHTML = "Explore";
+  getAllUsersPost()
 }
 function bookmarksPart() {
   more.style.display = "none";
@@ -176,9 +177,11 @@ function getAllUsersPost() {
 
     allPosts.map((aPost) => {
       getLikeCount(aPost.id);
+      loadPostLikeStatus(aPost.id)
     });
   });
 }
+getAllUsersPost()
 
 const commentSections = document.querySelector(".commentSections");
 const noMessage = document.querySelector(".noMessage");
@@ -214,7 +217,7 @@ function addComment() {
     .catch((err) => {
       console.error("Error:", err);
     });
-    getUserComments()
+  getUserComments();
 }
 
 const secMid = document.querySelector(".secMid");
@@ -228,16 +231,28 @@ function getUserComments() {
       commentData.map((data) => {
         secMid.innerHTML += `
         <div class="secMidCard">
-          <img src="${
-            "http://localhost:4200/" + data.profilepath
-          }" alt="rasm" />
-          <div class="secMidText">
-            <h3>${data.username}</h3>
-            <p>
-            ${data.comment}</p>
+          <div class="secMidCardImg">
+            <img src="${
+              "http://localhost:4200/" + data.profilepath
+            }" alt="rasm" />
+            <div class="secMidText">
+              <h3>@${data.username}</h3>
+              <p>
+              ${data.comment}</p>
+            </div>
+          </div>
+          <div id="commentLikeDiv">
+            <i onclick="clickLikeCommentButton(${data.id})" id="likeComment_${
+          data.id
+        }" class="fa-solid fa-heart"></i>
+            <span id="likeCommentSpann_${data.id}" class='likeSpan'>12</span>
           </div>
         </div>
         `;
+      });
+      commentData.map((aCommentLike) => {
+        getLikeCommentCount(aCommentLike.id);
+        loadCommentLikeStatus(aCommentLike.id) 
       });
     })
     .catch((err) => {
@@ -276,12 +291,6 @@ async function getLikeCount(postID) {
 
 function clickLikeButton(postID) {
   const likeIcon = document.getElementById(`like_${postID}`);
-  if (!likeIcon) return;
-
-  // Rangni darhol o‘zgartirish (yaxshi UX uchun)
-  likeIcon.style.color =
-    likeIcon.style.color === "red" ? "var(--textColor)" : "red";
-
   axios
     .post("http://localhost:4200/like/likes", {
       user_id: userData.id,
@@ -291,10 +300,78 @@ function clickLikeButton(postID) {
       console.log("Like response:", res.data);
       const boolLike = res.data.liked;
       likeIcon.style.color = boolLike ? "red" : "var(--textColor)";
-      getLikeCount(postID); // Like sonini yangilash
+      getLikeCount(postID);
     })
     .catch((error) => {
       console.error("Error liking image:", error);
     });
 }
+
+function loadPostLikeStatus(post_id) {
+  axios
+    .get(`http://localhost:4200/like/status/${post_id}`, {
+      params: { user_id: userData.id },
+    })
+    .then((res) => {
+      const likeIcon = document.getElementById(`like_${post_id}`);
+      if (likeIcon) {
+        likeIcon.style.color = res.data.liked ? "red" : "var(--textColor)";
+      }
+    })
+    .catch((error) => {
+      console.error("Error fetching like status:", error);
+    });
+}
+
+function getLikeCommentCount(comment_id) {
+  axios
+    .post("http://localhost:4200/commmentLike/likeCountComment", {
+      comment_id: comment_id,
+    })
+    .then((res) => {
+      const likeCount = res.data.like_count || 0;
+      const likeSpan = document.getElementById(`likeCommentSpann_${comment_id}`);
+      if (likeSpan) {
+        likeSpan.innerHTML = likeCount;
+      }else{
+        console.log(`like spanga ulanib bo'lmadi.`);
+      }
+    });
+
+}
+
+function clickLikeCommentButton(comment_id) {
+  const likeIcon = document.getElementById(`likeComment_${comment_id}`);
+  axios
+    .post("http://localhost:4200/commmentLike/likecomment", {
+      user_id: userData.id,
+      comment_id: comment_id,
+    })
+    .then((res) => {
+      console.log("Like response:", res.data);
+      const boolLike = res.data.liked;
+      likeIcon.style.color = boolLike ? "red" : "var(--textColor)";
+      getLikeCommentCount(comment_id);
+    })
+    .catch((error) => {
+      console.error("Error liking image:", error);
+    });
+}
+
+function loadCommentLikeStatus(comment_id) {
+  axios
+    .get(`http://localhost:4200/commmentLike/status/${comment_id}`, {
+      params: { user_id: userData.id },
+    })
+    .then((res) => {
+      const likeIcon = document.getElementById(`likeComment_${comment_id}`);
+      if (likeIcon) {
+        likeIcon.style.color = res.data.liked ? "red" : "var(--textColor)";
+      }
+    })
+    .catch((error) => {
+      console.error("Error fetching like status:", error);
+    });
+}
+
 showUser();

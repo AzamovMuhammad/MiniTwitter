@@ -22,7 +22,8 @@ exports.getComments = async (req, res) => {
         posts.id AS post_id,
         users.profilepath,
         users.username,
-        comments.comment
+        comments.comment,
+        comments.id
     FROM users
     INNER JOIN comments ON users.id = comments.user_id
     INNER JOIN posts ON posts.id = comments.post_id

@@ -7,6 +7,7 @@ const likeRouter = require("./routes/likePostRouter");
 const { commentPost } = require("./controllers/commentController");
 const commentRouter = require("./routes/commentsRouter");
 const commentLikeRouter = require("./routes/commentLikeRouter");
+const userFavRouter = require("./routes/userFavRouter");
 
 // middleware
 app.use(cors());
@@ -27,6 +28,10 @@ app.use('/comment', commentRouter)
 
 // commentlar uchun like
 app.use('/commmentLike', commentLikeRouter)
+
+// like bosilgan postlarni olish
+app.use('/favourite', userFavRouter)
+
 
 const port = 4200
 app.listen(port, () => {

@@ -3,6 +3,11 @@ const profile = document.querySelector(".profile");
 const homePartDiv = document.querySelector(".homePart");
 const pageTitle = document.querySelector(".pageTitle");
 const userImg = document.querySelector("#userImg");
+const commentSections = document.querySelector(".commentSections");
+const noMessage = document.querySelector(".noMessage");
+const senderPhoto = document.querySelector(".senderImg");
+const secMid = document.querySelector(".secMid");
+const secTop = document.querySelector(".secTop");
 
 // sections parts
 const more = document.querySelector(".more");
@@ -181,11 +186,6 @@ function getAllUsersPost() {
     });
   });
 }
-getAllUsersPost()
-
-const commentSections = document.querySelector(".commentSections");
-const noMessage = document.querySelector(".noMessage");
-const senderPhoto = document.querySelector(".senderImg");
 
 function commentOpen(post) {
   commentsOwner(post);
@@ -213,14 +213,13 @@ function addComment() {
     .post("http://localhost:4200/comment/commentPost", commentData)
     .then((res) => {
       alert("Success");
+      getUserComments();
     })
     .catch((err) => {
       console.error("Error:", err);
     });
-  getUserComments();
 }
 
-const secMid = document.querySelector(".secMid");
 function getUserComments() {
   const postId = JSON.parse(sessionStorage.getItem("postId"));
   axios
@@ -260,7 +259,6 @@ function getUserComments() {
     });
 }
 
-const secTop = document.querySelector(".secTop");
 function commentsOwner(post) {
   const fixedImgPath = post.profilepath.replace(/[|\\]/g, "/");
   const imgUrl = `http://localhost:4200/${fixedImgPath}`;

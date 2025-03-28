@@ -408,3 +408,9 @@
 #commentLikeDiv i{
   cursor: pointer;
 }
+
+/* userFavPostDiv style  */
+.userFavPostDiv{
+  display: none;
+  flex-direction: column;
+}

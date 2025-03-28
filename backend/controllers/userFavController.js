@@ -11,6 +11,7 @@ exports.userFavPost = async (req, res) => {
                     users.id,
                     users.fullname, 
                     users.username, 
+                    users.profilepath,
                     posts.id AS post_id, 
                     posts.postfilepath,
                     posts.posttext

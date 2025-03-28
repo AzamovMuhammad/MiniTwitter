@@ -8,6 +8,7 @@ const noMessage = document.querySelector(".noMessage");
 const senderPhoto = document.querySelector(".senderImg");
 const secMid = document.querySelector(".secMid");
 const secTop = document.querySelector(".secTop");
+const userFavPostDiv = document.querySelector(".userFavPostDiv");
 
 // sections parts
 const more = document.querySelector(".more");
@@ -58,6 +59,7 @@ function homePart() {
   addPostDiv.style.display = "flex";
   userPosts.style.display = "block";
   allUserPosts.style.display = "none";
+  userFavPostDiv.style.display = "none";
   pageTitle.innerHTML = "Home";
   noMessage.style.display = "flex";
   commentSections.style.display = "none";
@@ -67,6 +69,7 @@ function morePart() {
   addPostDiv.style.display = "none";
   userPosts.style.display = "none";
   allUserPosts.style.display = "none";
+  userFavPostDiv.style.display = "none";
   pageTitle.innerHTML = "More";
   noMessage.style.display = "flex";
   commentSections.style.display = "none";
@@ -75,6 +78,7 @@ function explorePart() {
   more.style.display = "none";
   addPostDiv.style.display = "none";
   userPosts.style.display = "none";
+  userFavPostDiv.style.display = "none";
   allUserPosts.style.display = "flex";
   pageTitle.innerHTML = "Explore";
   getAllUsersPost()
@@ -84,7 +88,9 @@ function bookmarksPart() {
   addPostDiv.style.display = "none";
   userPosts.style.display = "none";
   allUserPosts.style.display = "none";
+  userFavPostDiv.style.display = "flex";
   pageTitle.innerHTML = "Bookmarks";
+  showUserFavPosts()
 }
 
 document.getElementById("customFile").addEventListener("change", function () {
@@ -369,6 +375,72 @@ function loadCommentLikeStatus(comment_id) {
     })
     .catch((error) => {
       console.error("Error fetching like status:", error);
+    });
+}
+
+function showUserFavPosts() {
+  axios.post('http://localhost:4200/favourite/userFav', {user_id: userData.id})
+    .then((res) => {
+      const favData = res.data
+      console.log(favData);
+      userFavPostDiv.innerHTML = ''
+      favData.map((fav) => {
+        userFavPostDiv.innerHTML += `
+        <div class="userPostCard">
+          <div class="allUsersProfile">
+            <img src="${"http://localhost:4200/" + fav.profilepath}"/>
+            <h1>${fav.fullname}</h1>
+          </div>
+          <img src="${fav.url}" alt="">
+          <h2>${fav.posttext}</h2>
+          <div class="postInfo">        
+            <div class="likeDiv">
+              <div id="likeDiv">
+                <i onclick="clickLikeFavButton(${fav.id})" id="like_${fav.id}" class="fa-solid fa-heart"></i>
+                <span id="likeSpan_${fav.id}" class='likeSpan'>0</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        `
+      })
+      favData.map((aPost) => {
+        getLikeFavCount(aPost.id);
+      });
+    })
+}
+
+async function getLikeFavCount(postID) {
+  try {
+    const response = await axios.post("http://localhost:4200/like/likesC", {
+      images_id: postID,
+    });
+    const likeCount = response.data.like_count || 0;
+
+    const likeSpan = document.getElementById(`likeSpan_${postID}`);
+    if (likeSpan) {
+      likeSpan.innerHTML = likeCount;
+    }
+  } catch (error) {
+    console.error("Error fetching like count:", error);
+  }
+}
+
+function clickLikeFavButton(postID) {
+  const likeIcon = document.getElementById(`like_${postID}`);
+  axios
+    .post("http://localhost:4200/like/likes", {
+      user_id: userData.id,
+      images_id: postID,
+    })
+    .then((res) => {
+      console.log("Like response:", res.data);
+      const boolLike = res.data.liked;
+      likeIcon.style.color = boolLike ? "red" : "var(--textColor)";
+      getLikeFavCount(postID);
+    })
+    .catch((error) => {
+      console.error("Error liking image:", error);
     });
 }
 

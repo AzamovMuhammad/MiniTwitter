@@ -81,7 +81,7 @@ function explorePart() {
   userFavPostDiv.style.display = "none";
   allUserPosts.style.display = "flex";
   pageTitle.innerHTML = "Explore";
-  getAllUsersPost()
+  getAllUsersPost();
 }
 function bookmarksPart() {
   more.style.display = "none";
@@ -90,7 +90,7 @@ function bookmarksPart() {
   allUserPosts.style.display = "none";
   userFavPostDiv.style.display = "flex";
   pageTitle.innerHTML = "Bookmarks";
-  showUserFavPosts()
+  showUserFavPosts();
 }
 
 document.getElementById("customFile").addEventListener("change", function () {
@@ -188,7 +188,7 @@ function getAllUsersPost() {
 
     allPosts.map((aPost) => {
       getLikeCount(aPost.id);
-      loadPostLikeStatus(aPost.id)
+      loadPostLikeStatus(aPost.id);
     });
   });
 }
@@ -250,14 +250,14 @@ function getUserComments() {
             <i onclick="clickLikeCommentButton(${data.id})" id="likeComment_${
           data.id
         }" class="fa-solid fa-heart"></i>
-            <span id="likeCommentSpann_${data.id}" class='likeSpan'>12</span>
+            <span id="likeCommentSpann_${data.id}" class='likeSpan'>0</span>
           </div>
         </div>
         `;
       });
       commentData.map((aCommentLike) => {
         getLikeCommentCount(aCommentLike.id);
-        loadCommentLikeStatus(aCommentLike.id) 
+        loadCommentLikeStatus(aCommentLike.id);
       });
     })
     .catch((err) => {
@@ -334,14 +334,15 @@ function getLikeCommentCount(comment_id) {
     })
     .then((res) => {
       const likeCount = res.data.like_count || 0;
-      const likeSpan = document.getElementById(`likeCommentSpann_${comment_id}`);
+      const likeSpan = document.getElementById(
+        `likeCommentSpann_${comment_id}`
+      );
       if (likeSpan) {
         likeSpan.innerHTML = likeCount;
-      }else{
+      } else {
         console.log(`like spanga ulanib bo'lmadi.`);
       }
     });
-
 }
 
 function clickLikeCommentButton(comment_id) {
@@ -379,11 +380,12 @@ function loadCommentLikeStatus(comment_id) {
 }
 
 function showUserFavPosts() {
-  axios.post('http://localhost:4200/favourite/userFav', {user_id: userData.id})
+  axios
+    .post("http://localhost:4200/favourite/userFav", { user_id: userData.id })
     .then((res) => {
-      const favData = res.data
+      const favData = res.data;
       console.log(favData);
-      userFavPostDiv.innerHTML = ''
+      userFavPostDiv.innerHTML = "";
       favData.map((fav) => {
         userFavPostDiv.innerHTML += `
         <div class="userPostCard">
@@ -396,18 +398,20 @@ function showUserFavPosts() {
           <div class="postInfo">        
             <div class="likeDiv">
               <div id="likeDiv">
-                <i onclick="clickLikeFavButton(${fav.id})" id="like_${fav.id}" class="fa-solid fa-heart"></i>
-                <span id="likeSpan_${fav.id}" class='likeSpan'>0</span>
+                <i onclick="clickLikeFavButton(${fav.post_id})" id="like_${
+          fav.post_id
+        }" class="fa-solid fa-heart"></i>
+                <span id="likeSpan_${fav.post_id}" class='likeSpan'>0</span>
               </div>
             </div>
           </div>
         </div>
-        `
-      })
-      favData.map((aPost) => {
-        getLikeFavCount(aPost.id);
+        `;
       });
-    })
+      favData.map((aPost) => {
+        getLikeFavCount(aPost.post_id);
+      });
+    });
 }
 
 async function getLikeFavCount(postID) {
@@ -427,7 +431,13 @@ async function getLikeFavCount(postID) {
 }
 
 function clickLikeFavButton(postID) {
-  const likeIcon = document.getElementById(`like_${postID}`);
+
+  // Ma'lumotlarni tekshirish uchun log qo'shish
+  console.log("Like bosildi, yuborilayotgan ma'lumot:", {
+    user_id: userData.id,
+    images_id: postID,
+  });
+
   axios
     .post("http://localhost:4200/like/likes", {
       user_id: userData.id,
@@ -435,13 +445,12 @@ function clickLikeFavButton(postID) {
     })
     .then((res) => {
       console.log("Like response:", res.data);
-      const boolLike = res.data.liked;
-      likeIcon.style.color = boolLike ? "red" : "var(--textColor)";
       getLikeFavCount(postID);
     })
     .catch((error) => {
-      console.error("Error liking image:", error);
-    });
+      console.error("Like bosishda xatolik:", error);
+  });
+  showUserFavPosts() 
 }
 
 showUser();

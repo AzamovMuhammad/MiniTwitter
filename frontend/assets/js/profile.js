@@ -36,11 +36,12 @@ function showUser() {
   getUserPosts();
   getAllUsersPost();
 }
+
 document.addEventListener("DOMContentLoaded", () => {
   const theme = localStorage.getItem("theme");
-  console.log(theme);
   document.documentElement.classList.toggle("dark-mode", theme === "dark");
 });
+
 function switchMode() {
   const isDarkMode = document.documentElement.classList.toggle("dark-mode");
   localStorage.setItem("theme", isDarkMode ? "dark" : "light");
@@ -49,11 +50,13 @@ function switchMode() {
 if (!userData) {
   logOut();
 }
+
 function logOut() {
   localStorage.removeItem("user");
   localStorage.removeItem("token");
   window.location.href = "../index.html";
 }
+
 function homePart() {
   more.style.display = "none";
   addPostDiv.style.display = "flex";
@@ -64,6 +67,7 @@ function homePart() {
   noMessage.style.display = "flex";
   commentSections.style.display = "none";
 }
+
 function morePart() {
   more.style.display = "flex";
   addPostDiv.style.display = "none";
@@ -74,6 +78,7 @@ function morePart() {
   noMessage.style.display = "flex";
   commentSections.style.display = "none";
 }
+
 function explorePart() {
   more.style.display = "none";
   addPostDiv.style.display = "none";
@@ -83,6 +88,7 @@ function explorePart() {
   pageTitle.innerHTML = "Explore";
   getAllUsersPost();
 }
+
 function bookmarksPart() {
   more.style.display = "none";
   addPostDiv.style.display = "none";
@@ -97,7 +103,6 @@ document.getElementById("customFile").addEventListener("change", function () {
   let fileColor = this.files.length > 0 ? "grey" : "none";
   document.querySelector(".fa-image").style.background = `${fileColor}`;
 });
-
 // Post send part js code
 function addPost() {
   const userId = userData.id;
@@ -125,7 +130,6 @@ function addPost() {
     alert("text yozish shart");
   }
 }
-
 // poste get js code
 function getUserPosts() {
   axios
@@ -153,7 +157,6 @@ function getUserPosts() {
 function getAllUsersPost() {
   axios.get("http://localhost:4200/post/allPosts").then((res) => {
     const allPosts = res.data;
-    console.log(allPosts);
     allUserPosts.innerHTML = "";
 
     allPosts.map((post) => {
@@ -384,7 +387,6 @@ function showUserFavPosts() {
     .post("http://localhost:4200/favourite/userFav", { user_id: userData.id })
     .then((res) => {
       const favData = res.data;
-      console.log(favData);
       userFavPostDiv.innerHTML = "";
       favData.map((fav) => {
         userFavPostDiv.innerHTML += `
@@ -398,10 +400,10 @@ function showUserFavPosts() {
           <div class="postInfo">        
             <div class="likeDiv">
               <div id="likeDiv">
-                <i onclick="clickLikeFavButton(${fav.post_id})" id="like_${
+                <i style="color: red;" onclick="clickLikeFavButton(${fav.post_id})" id="like_${
           fav.post_id
-        }" class="fa-solid fa-heart"></i>
-                <span id="likeSpan_${fav.post_id}" class='likeSpan'>0</span>
+        }" class="fa-solid fa-heart" style></i>
+                <span id="likeFavSpan_${fav.post_id}" class='likeSpan'>0</span>
               </div>
             </div>
           </div>
@@ -419,11 +421,10 @@ async function getLikeFavCount(postID) {
     const response = await axios.post("http://localhost:4200/like/likesC", {
       images_id: postID,
     });
-    const likeCount = response.data.like_count || 0;
-
-    const likeSpan = document.getElementById(`likeSpan_${postID}`);
+    const likeCount = response.data.like_count;
+    const likeSpan = document.getElementById(`likeFavSpan_${postID}`);
     if (likeSpan) {
-      likeSpan.innerHTML = likeCount;
+      likeSpan.innerText = `${likeCount}`;
     }
   } catch (error) {
     console.error("Error fetching like count:", error);
@@ -431,26 +432,19 @@ async function getLikeFavCount(postID) {
 }
 
 function clickLikeFavButton(postID) {
-
-  // Ma'lumotlarni tekshirish uchun log qo'shish
-  console.log("Like bosildi, yuborilayotgan ma'lumot:", {
-    user_id: userData.id,
-    images_id: postID,
-  });
-
+  const likeIcon = document.getElementById(`like_${postID}`);
   axios
     .post("http://localhost:4200/like/likes", {
       user_id: userData.id,
       images_id: postID,
     })
     .then((res) => {
-      console.log("Like response:", res.data);
       getLikeFavCount(postID);
+      showUserFavPosts() 
     })
     .catch((error) => {
       console.error("Like bosishda xatolik:", error);
   });
-  showUserFavPosts() 
 }
 
 showUser();

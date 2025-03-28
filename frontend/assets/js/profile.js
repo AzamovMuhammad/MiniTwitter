@@ -20,7 +20,8 @@ function showUser() {
   const inputDivImg = document.querySelector(".inputDivImg");
   if (userData && userData.profilepath) {
     // Xatolikni oldini olish uchun tekshirish
-    const imgUrl = `http://localhost:4200/` + userData.profilepath;
+    const imgUrl =
+      `https://minitwitter-kk42.onrender.com/` + userData.profilepath;
     inputDivImg.src = imgUrl;
     profile.innerHTML += `
             <img id="userImg" src="${imgUrl}" alt="rasm">
@@ -117,7 +118,7 @@ function addPost() {
 
   if (postText) {
     axios
-      .post(`http://localhost:4200/post/addPost`, formData, {
+      .post(`https://minitwitter-kk42.onrender.com/post/addPost`, formData, {
         headers: {
           "Content-Type": "multipart/form-data",
         },
@@ -133,7 +134,7 @@ function addPost() {
 // poste get js code
 function getUserPosts() {
   axios
-    .post(`http://localhost:4200/post/getPosts`, {
+    .post(`https://minitwitter-kk42.onrender.com/post/getPosts`, {
       user_id: userData.id,
     })
     .then((res) => {
@@ -145,7 +146,9 @@ function getUserPosts() {
 
         userPosts.innerHTML += `
       <div class="userPostCard">
-        <img src="${"http://localhost:4200/" + post.postfilepath}" alt="">
+        <img src="${
+          "https://minitwitter-kk42.onrender.com/" + post.postfilepath
+        }" alt="">
         <h2>${post.posttext}</h3>
         <p>${formatdate}</p>
       </div>
@@ -155,28 +158,34 @@ function getUserPosts() {
 }
 
 function getAllUsersPost() {
-  axios.get("http://localhost:4200/post/allPosts").then((res) => {
-    const allPosts = res.data;
-    allUserPosts.innerHTML = "";
+  axios
+    .get("https://minitwitter-kk42.onrender.com/post/allPosts")
+    .then((res) => {
+      const allPosts = res.data;
+      allUserPosts.innerHTML = "";
 
-    allPosts.map((post) => {
-      const newDate = new Date(post.date);
-      const formatdate = newDate.toISOString().slice(0, 16).replace("T", " ");
+      allPosts.map((post) => {
+        const newDate = new Date(post.date);
+        const formatdate = newDate.toISOString().slice(0, 16).replace("T", " ");
 
-      allUserPosts.innerHTML += `
+        allUserPosts.innerHTML += `
       <div class="userPostCard">
         <div class="allUsersProfile">
-          <img src="${"http://localhost:4200/" + post.profilepath}"/>
+          <img src="${
+            "https://minitwitter-kk42.onrender.com/" + post.profilepath
+          }"/>
           <h1>${post.fullname}</h1>
         </div>
-        <img src="${"http://localhost:4200/" + post.postfilepath}" alt="">
+        <img src="${
+          "https://minitwitter-kk42.onrender.com/" + post.postfilepath
+        }" alt="">
         <h2>${post.posttext}</h2>
         <div class="postInfo">        
           <div class="likeDiv">
             <div id="likeDiv">
               <i onclick="clickLikeButton(${post.id})" id="like_${
-        post.id
-      }" class="fa-solid fa-heart"></i>
+          post.id
+        }" class="fa-solid fa-heart"></i>
               <span id="likeSpan_${post.id}" class='likeSpan'>0</span>
             </div>
             <i class="fa-solid fa-comment" onclick='commentOpen(${JSON.stringify(
@@ -187,13 +196,13 @@ function getAllUsersPost() {
         </div>
       </div>
       `;
-    });
+      });
 
-    allPosts.map((aPost) => {
-      getLikeCount(aPost.id);
-      loadPostLikeStatus(aPost.id);
+      allPosts.map((aPost) => {
+        getLikeCount(aPost.id);
+        loadPostLikeStatus(aPost.id);
+      });
     });
-  });
 }
 
 function commentOpen(post) {
@@ -206,7 +215,9 @@ function commentOpen(post) {
 }
 
 function senderImg() {
-  senderPhoto.src = `${"http://localhost:4200/" + userData.profilepath}`;
+  senderPhoto.src = `${
+    "https://minitwitter-kk42.onrender.com/" + userData.profilepath
+  }`;
 }
 
 function addComment() {
@@ -219,7 +230,10 @@ function addComment() {
   };
 
   axios
-    .post("http://localhost:4200/comment/commentPost", commentData)
+    .post(
+      "https://minitwitter-kk42.onrender.com/comment/commentPost",
+      commentData
+    )
     .then((res) => {
       alert("Success");
       getUserComments();
@@ -232,7 +246,9 @@ function addComment() {
 function getUserComments() {
   const postId = JSON.parse(sessionStorage.getItem("postId"));
   axios
-    .post("http://localhost:4200/comment/getComment", { post_id: postId })
+    .post("https://minitwitter-kk42.onrender.com/comment/getComment", {
+      post_id: postId,
+    })
     .then((res) => {
       secMid.innerHTML = " ";
       const commentData = res.data;
@@ -241,7 +257,7 @@ function getUserComments() {
         <div class="secMidCard">
           <div class="secMidCardImg">
             <img src="${
-              "http://localhost:4200/" + data.profilepath
+              "https://minitwitter-kk42.onrender.com/" + data.profilepath
             }" alt="rasm" />
             <div class="secMidText">
               <h3>@${data.username}</h3>
@@ -270,7 +286,7 @@ function getUserComments() {
 
 function commentsOwner(post) {
   const fixedImgPath = post.profilepath.replace(/[|\\]/g, "/");
-  const imgUrl = `http://localhost:4200/${fixedImgPath}`;
+  const imgUrl = `https://minitwitter-kk42.onrender.com/${fixedImgPath}`;
   secTop.innerHTML = `
     <img class="secTopImg" src="${imgUrl}" alt="rasm" />
     <div class="secTopText">
@@ -282,9 +298,12 @@ function commentsOwner(post) {
 
 async function getLikeCount(postID) {
   try {
-    const response = await axios.post("http://localhost:4200/like/likesC", {
-      images_id: postID,
-    });
+    const response = await axios.post(
+      "https://minitwitter-kk42.onrender.com/like/likesC",
+      {
+        images_id: postID,
+      }
+    );
     const likeCount = response.data.like_count || 0;
 
     const likeSpan = document.getElementById(`likeSpan_${postID}`);
@@ -299,7 +318,7 @@ async function getLikeCount(postID) {
 function clickLikeButton(postID) {
   const likeIcon = document.getElementById(`like_${postID}`);
   axios
-    .post("http://localhost:4200/like/likes", {
+    .post("https://minitwitter-kk42.onrender.com/like/likes", {
       user_id: userData.id,
       images_id: postID,
     })
@@ -316,7 +335,7 @@ function clickLikeButton(postID) {
 
 function loadPostLikeStatus(post_id) {
   axios
-    .get(`http://localhost:4200/like/status/${post_id}`, {
+    .get(`https://minitwitter-kk42.onrender.com/like/status/${post_id}`, {
       params: { user_id: userData.id },
     })
     .then((res) => {
@@ -332,9 +351,12 @@ function loadPostLikeStatus(post_id) {
 
 function getLikeCommentCount(comment_id) {
   axios
-    .post("http://localhost:4200/commmentLike/likeCountComment", {
-      comment_id: comment_id,
-    })
+    .post(
+      "https://minitwitter-kk42.onrender.com/commmentLike/likeCountComment",
+      {
+        comment_id: comment_id,
+      }
+    )
     .then((res) => {
       const likeCount = res.data.like_count || 0;
       const likeSpan = document.getElementById(
@@ -351,7 +373,7 @@ function getLikeCommentCount(comment_id) {
 function clickLikeCommentButton(comment_id) {
   const likeIcon = document.getElementById(`likeComment_${comment_id}`);
   axios
-    .post("http://localhost:4200/commmentLike/likecomment", {
+    .post("https://minitwitter-kk42.onrender.com/commmentLike/likecomment", {
       user_id: userData.id,
       comment_id: comment_id,
     })
@@ -368,9 +390,12 @@ function clickLikeCommentButton(comment_id) {
 
 function loadCommentLikeStatus(comment_id) {
   axios
-    .get(`http://localhost:4200/commmentLike/status/${comment_id}`, {
-      params: { user_id: userData.id },
-    })
+    .get(
+      `https://minitwitter-kk42.onrender.com/commmentLike/status/${comment_id}`,
+      {
+        params: { user_id: userData.id },
+      }
+    )
     .then((res) => {
       const likeIcon = document.getElementById(`likeComment_${comment_id}`);
       if (likeIcon) {
@@ -384,7 +409,9 @@ function loadCommentLikeStatus(comment_id) {
 
 function showUserFavPosts() {
   axios
-    .post("http://localhost:4200/favourite/userFav", { user_id: userData.id })
+    .post("https://minitwitter-kk42.onrender.com/favourite/userFav", {
+      user_id: userData.id,
+    })
     .then((res) => {
       const favData = res.data;
       userFavPostDiv.innerHTML = "";
@@ -392,7 +419,9 @@ function showUserFavPosts() {
         userFavPostDiv.innerHTML += `
         <div class="userPostCard">
           <div class="allUsersProfile">
-            <img src="${"http://localhost:4200/" + fav.profilepath}"/>
+            <img src="${
+              "https://minitwitter-kk42.onrender.com/" + fav.profilepath
+            }"/>
             <h1>${fav.fullname}</h1>
           </div>
           <img src="${fav.url}" alt="">
@@ -400,7 +429,9 @@ function showUserFavPosts() {
           <div class="postInfo">        
             <div class="likeDiv">
               <div id="likeDiv">
-                <i style="color: red;" onclick="clickLikeFavButton(${fav.post_id})" id="like_${
+                <i style="color: red;" onclick="clickLikeFavButton(${
+                  fav.post_id
+                })" id="like_${
           fav.post_id
         }" class="fa-solid fa-heart" style></i>
                 <span id="likeFavSpan_${fav.post_id}" class='likeSpan'>0</span>
@@ -418,9 +449,12 @@ function showUserFavPosts() {
 
 async function getLikeFavCount(postID) {
   try {
-    const response = await axios.post("http://localhost:4200/like/likesC", {
-      images_id: postID,
-    });
+    const response = await axios.post(
+      "https://minitwitter-kk42.onrender.com/like/likesC",
+      {
+        images_id: postID,
+      }
+    );
     const likeCount = response.data.like_count;
     const likeSpan = document.getElementById(`likeFavSpan_${postID}`);
     if (likeSpan) {
@@ -434,17 +468,17 @@ async function getLikeFavCount(postID) {
 function clickLikeFavButton(postID) {
   const likeIcon = document.getElementById(`like_${postID}`);
   axios
-    .post("http://localhost:4200/like/likes", {
+    .post("https://minitwitter-kk42.onrender.com/like/likes", {
       user_id: userData.id,
       images_id: postID,
     })
     .then((res) => {
       getLikeFavCount(postID);
-      showUserFavPosts() 
+      showUserFavPosts();
     })
     .catch((error) => {
       console.error("Like bosishda xatolik:", error);
-  });
+    });
 }
 
 showUser();

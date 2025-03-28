@@ -3,15 +3,13 @@ if (userData) {
   window.location.href = "/pages/profile.html";
 }
 
-
-
 function login() {
   const username = document.getElementById("username").value;
   const password = document.getElementById("password").value;
   const errorText = document.getElementById("error");
-  errorText.style.display = "none"
+  errorText.style.display = "none";
   axios
-    .post(`http://localhost:4200/user/login`, {
+    .post(`https://minitwitter-kk42.onrender.com/user/login`, {
       username: username,
       password: password,
     })
@@ -22,11 +20,11 @@ function login() {
       localStorage.setItem("token", JSON.stringify(token));
       console.log(user);
       console.log(token);
-      profilePage()
+      profilePage();
     })
     .catch((error) => {
       const resError = error.response.data;
-      errorText.style.display = "inline"
+      errorText.style.display = "inline";
       if (resError) {
         console.log(resError);
         // Serverdan kelgan xatolik
@@ -42,13 +40,13 @@ function login() {
     });
 }
 function profilePage() {
-    window.location.href = 'pages/profile.html'
+  window.location.href = "pages/profile.html";
 }
 
 function showModeFunction() {
-    if (localStorage.getItem("theme") === "dark") {
-        document.documentElement.classList.add("dark-mode")
-    }
+  if (localStorage.getItem("theme") === "dark") {
+    document.documentElement.classList.add("dark-mode");
+  }
 }
 
-showModeFunction()
+showModeFunction();

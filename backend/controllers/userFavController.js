@@ -24,7 +24,7 @@ exports.userFavPost = async (req, res) => {
     );
     if (userFavPostResult.rows.length != 0) {
       const photos = userFavPostResult.rows.map((photo) => {
-        return { ...photo, url: `http://localhost:4200/` + photo.postfilepath };
+        return { ...photo, url: `https://minitwitter-kk42.onrender.com` + photo.postfilepath };
       });
       return res.json(photos);
     } else {

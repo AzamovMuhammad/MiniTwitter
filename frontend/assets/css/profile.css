@@ -170,45 +170,44 @@
   display: flex;
   flex-direction: column;
   gap: 10px;
-  padding: 10px 0px;
+  padding: 5px 0px;
 }
 .inputDiv {
   width: 100%;
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 20px;
+  gap: 10px;
   padding: 0px 20px;
 }
 .inputDiv img {
-  width: 60px !important;
-  height: 60px !important;
-  /* flex: 1; */
+  width: 45px !important;
+  height: 45px !important;
   border-radius: 50%;
   border: 1px solid var(--strokeColor);
 }
 .inputDiv input {
   flex: 10;
-  font-size: 20px;
+  font-size: 16px;
   outline: none;
-  padding: 15px 10px;
+  padding: 5px 10px;
   background-color: var(--bg-color);
   border: none;
   color: var(--textColor);
 }
 .selectBtn i {
   color: var(--primaryColor);
-  font-size: 30px;
+  font-size: 24px;
   cursor: pointer;
-  padding: 10px;
+  padding: 5px;
 }
 .btnDiv button {
   border-radius: 20px;
-  padding: 10px 20px;
+  padding: 5px 10px;
   color: var(--textColor);
   background-color: var(--primaryColor);
   border: none;
-  font-size: 18px;
+  font-size: 14px;
   cursor: pointer;
 }
 .fa-image {

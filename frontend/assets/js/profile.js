@@ -422,10 +422,10 @@ function showUserFavPosts() {
             <img src="${
               "https://minitwitter-kk42.onrender.com/" + fav.profilepath
             }"/>
-            <h1>${fav.fullname}</h1>
+            <h3>${fav.fullname}</h3>
           </div>
           <img src="${fav.url}" alt="">
-          <h2>${fav.posttext}</h2>
+          <h4>${fav.posttext}</h2>
           <div class="postInfo">        
             <div class="likeDiv">
               <div id="likeDiv">

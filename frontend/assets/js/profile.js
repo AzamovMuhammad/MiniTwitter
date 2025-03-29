@@ -442,6 +442,7 @@ function showUserFavPosts() {
         `;
       });
       favData.map((aPost) => {
+        console.log(aPost.url);
         getLikeFavCount(aPost.post_id);
       });
     });
